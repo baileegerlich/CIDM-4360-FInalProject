@@ -1,7 +1,6 @@
 namespace FinalProject;
 using System.Data;
 using MySql.Data.MySqlClient;
-
 class GuiTier{
     User user = new User();
     DataTier database = new DataTier();
@@ -9,10 +8,10 @@ class GuiTier{
     // print login page
      public User Login(){
         Console.WriteLine("------Welcome to Course Management System------");
-        Console.WriteLine("Please input user ID (StudentID): ");
-        user.userID = Convert.ToInt16(Console.ReadLine());
-        Console.WriteLine("Please input password: ");
-        user.userPassword = Console.ReadLine();
+        Console.WriteLine("Please Enter Username: ");
+        user.userID = Console.ReadLine()!;
+        Console.WriteLine("Please Enter password: ");
+        user.userPassword = Console.ReadLine()!;
         return user;
     }
 
@@ -20,19 +19,16 @@ class GuiTier{
     public int Dashboard(User user){
         DateTime localDate = DateTime.Now;
         Console.WriteLine("---------------User Dashboard-------------------");
-        Console.WriteLine($"Hello: {user.userID}");
         Console.WriteLine("Please select an option to continue:");
-        Console.WriteLine("1. Add New Package");
-        Console.WriteLine("2. Send Email");
-        Console.WriteLine("3. Update Package Status");
-        Console.WriteLine("4. Show Package Records");
-        Console.WriteLine("5. Log Out");
+        Console.WriteLine("1. Send Email");
+        Console.WriteLine("2. Show Package records");
+        Console.WriteLine("3. Log Out");
         int option = Convert.ToInt16(Console.ReadLine());
         return option;
     }
 
     // Add new package records returned from database
-    public void DisplayEnrollment(DataTable tableResidents){
+    public void DisplayResidents(DataTable tableResidents){
         Console.WriteLine("---------------Resident List-------------------");
         foreach(DataRow row in tableResidents.Rows){
            Console.WriteLine($"Resident ID: {row["id"]} \t Full Name: {row["full_name"]} \t Email:{row["email"]} \t Unit Number:{row["unit_number"]}");

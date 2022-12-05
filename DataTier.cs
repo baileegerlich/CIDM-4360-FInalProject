@@ -39,7 +39,7 @@ class DataTier{
        
     }
     // perform enrollment check using Stored Procedure "CheckEnrollment" based on user and semester
-    public DataTable CheckEnrollment(User user){
+    public DataTable LoginCount(User user){
         MySqlConnection conn = new MySqlConnection(connStr);
         Console.WriteLine("Please input a semester in TermYear format, e.g: Fall2022, Spring2021");
         string? semester = Console.ReadLine();
@@ -70,53 +70,24 @@ class DataTier{
         }
        
     } 
-    // Add courses
-    public void AddCourse(User user){
-        MySqlConnection conn = new MySqlConnection(connStr);
-        Console.WriteLine("Please input a course ID");
-        string? courseID = Console.ReadLine();
-
-         Console.WriteLine("Please input a semester in TermYear format, e.g: Fall2022, Spring2021");
-        string? semester = Console.ReadLine();
-        try
-        {  
-            conn.Open();
-            string procedure = "AddCourse";
-            MySqlCommand cmd = new MySqlCommand(procedure, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@inputUserID", user.userID);
-            cmd.Parameters["@inputUserID"].Direction = ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@inputCourseID", courseID);
-            cmd.Parameters["@inputCourseID"].Direction = ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@inputSemester", semester);
-            cmd.Parameters["@inputSemester"].Direction = ParameterDirection.Input;
-
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-            conn.Close();
-        }
-    }
+    //
     // show courses
-    public DataTable ShowCourse(){
+    public DataTable ShowRecords(){
         MySqlConnection conn = new MySqlConnection(connStr);
         
         try
         {  
             conn.Open();
-            string procedure = "ShowCourse";
+            string procedure = "ShowRecords";
             MySqlCommand cmd = new MySqlCommand(procedure, conn);
             // cmd.CommandType = CommandType.StoredProcedure;
             MySqlDataReader rdr = cmd.ExecuteReader();
 
-            DataTable TableShowCourse = new DataTable();
-            TableShowCourse.Load(rdr);
+            DataTable TableShowRecords = new DataTable();
+            TableShowRecords.Load(rdr);
             rdr.Close();
             conn.Close();
-            return TableShowCourse;
+            return TableShowRecords;
         }
         catch (Exception ex)
         {
@@ -125,34 +96,22 @@ class DataTier{
             return null!;
         }
     }
-    // drop courses
-    public DataTable DropCourse(User user){
+    public DataTable Email(){
         MySqlConnection conn = new MySqlConnection(connStr);
-        Console.WriteLine("Please input a course ID");
-        string? courseID = Console.ReadLine();
-
-         Console.WriteLine("Please input a semester in TermYear format, e.g: Fall2022, Spring2021");
-        string? semester = Console.ReadLine();
+        
         try
         {  
             conn.Open();
-            string procedure = "DropCourse";
+            string procedure = "Email";
             MySqlCommand cmd = new MySqlCommand(procedure, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@inputUserID", user.userID);
-            cmd.Parameters["@inputUserID"].Direction = ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@inputCourseID", courseID);
-            cmd.Parameters["@inputCourseID"].Direction = ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@inputSemester", semester);
-            cmd.Parameters["@inputSemester"].Direction = ParameterDirection.Input;
-
+            // cmd.CommandType = CommandType.StoredProcedure;
             MySqlDataReader rdr = cmd.ExecuteReader();
 
-            DataTable TableDropCourse = new DataTable();
-            TableDropCourse.Load(rdr);
+            DataTable TableEmail = new DataTable();
+            TableEmail.Load(rdr);
             rdr.Close();
             conn.Close();
-            return TableDropCourse;
+            return TableEmail;
         }
         catch (Exception ex)
         {
