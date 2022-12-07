@@ -51,11 +51,11 @@ class DataTier{
             // cmd.CommandType = CommandType.StoredProcedure;
             MySqlDataReader rdr = cmd.ExecuteReader();
 
-            DataTable TableShowRecords = new DataTable();
-            TableShowRecords.Load(rdr);
+            DataTable TablePackageRecord = new DataTable();
+            TablePackageRecord.Load(rdr);
             rdr.Close();
             conn.Close();
-            return TableShowRecords;
+            return TablePackageRecord;
         }
         catch (Exception ex)
         {

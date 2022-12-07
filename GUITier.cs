@@ -28,14 +28,14 @@ class GuiTier{
     }
 
     // Add new package records returned from database
-    public void DisplayResidents(DataTable tableResidents){
+    public void DisplayPackageRecord(DataTable tablePackageRecord){
         Console.WriteLine("---------------Package Record List-------------------");
-        foreach(DataRow row in tableResidents.Rows){
-           Console.WriteLine($"Resident ID: {row["id"]} \t Full Name: {row["full_name"]} \t Email:{row["email"]} \t Unit Number:{row["unit_number"]}");
+        foreach(DataRow row in tablePackageRecord.Rows){
+           Console.WriteLine($"Package ID: {row["id"]} \t Date: {row["pDate"]}");
         }
     }
     public void DisplayEmail(DataTable tableEmail){
-        Console.WriteLine("---------------List-------------------");
+        Console.WriteLine("---------------List of Packages-------------------");
         foreach(DataRow row in tableEmail.Rows){
            Console.WriteLine($"Package ID: {row["packageID"]} \t Agency: {row["agency"]} \t Status:{row["pStatus"]}");
         }

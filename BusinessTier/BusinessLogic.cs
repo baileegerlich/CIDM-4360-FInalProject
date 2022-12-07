@@ -1,12 +1,9 @@
 namespace FinalProject;
 using System.Data;
-using MySql.Data.MySqlClient;
 using Azure.Communication.Email;
 using Azure.Communication.Email.Models;
 class BusinessLogic
 {
-   
-
    //Business Logic
     static async Task Main(string[] args)
     {
@@ -29,14 +26,14 @@ class BusinessLogic
                     case 1:
                         DataTable tableEmail = database.Email();
                         if(tableEmail != null)
-                            appGUI.DisplayResidents(tableEmail);
+                            appGUI.DisplayEmail(tableEmail);
                              
                                 // this serviceConnectionString is stored in the code diectly in this example for demo purpose
                                 // it should be stored in the server when working for a business application.
                                 // ref: https://learn.microsoft.com/en-us/azure/communication-services/quickstarts/create-communication-resource?tabs=windows&pivots=platform-azp#store-your-connection-string
                                 string serviceConnectionString = "endpoint=https://bngerichweek10communicationservice.communication.azure.com/;accesskey=OXQEgcwnZem2uN/hnwRtaD812qx4Hn/2Njon3+M1SIUYLVEg/68JN+VUW2duJKvRSoKE4dJoJBpMkzOlOXwo9w==";
                                 EmailClient emailClient = new EmailClient(serviceConnectionString);
-                                var subject = "Package";
+                                var subject = "PACKAGE ALERT!";
                                 var emailContent = new EmailContent(subject);
                                 // use Multiline String @ to design html content
                                 emailContent.Html= @"
@@ -83,7 +80,7 @@ class BusinessLogic
                                         {
                                             break;
                                         }
-                                        await Task.Delay(TimeSpan.FromSeconds(20));
+                                        await Task.Delay(TimeSpan.FromSeconds(10));
                                     
                                     } while (!cancellationToken.IsCancellationRequested);
 
@@ -100,9 +97,9 @@ class BusinessLogic
 
                     // Package History Records 
                     case 2:
-                    DataTable TableShowRecords = database.ShowRecords();
-                        if(TableShowRecords != null)
-                            appGUI.DisplayResidents(TableShowRecords);
+                    DataTable TablePackageRecord = database.ShowRecords();
+                        if(TablePackageRecord != null)
+                            appGUI.DisplayPackageRecord(TablePackageRecord);
                         break;
                     // Log Out
                     case 3:
