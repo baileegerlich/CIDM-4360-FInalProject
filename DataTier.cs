@@ -38,40 +38,8 @@ class DataTier{
         }
        
     }
-    // perform enrollment check using Stored Procedure "CheckEnrollment" based on user and semester
-    public DataTable LoginCount(User user){
-        MySqlConnection conn = new MySqlConnection(connStr);
-        Console.WriteLine("Please input a semester in TermYear format, e.g: Fall2022, Spring2021");
-        string? semester = Console.ReadLine();
-        try
-        {  
-            conn.Open();
-            string procedure = "CheckEnrollment";
-            MySqlCommand cmd = new MySqlCommand(procedure, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@inputStudentID", user.userID);
-            cmd.Parameters["@inputStudentID"].Direction = ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@inputSemester", semester);
-            cmd.Parameters["@inputSemester"].Direction = ParameterDirection.Input;
-
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            DataTable tableEnrollment = new DataTable();
-            tableEnrollment.Load(rdr);
-            rdr.Close();
-            conn.Close();
-            return tableEnrollment;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-            conn.Close();
-            return null!;
-        }
-       
-    } 
-    //
-    // show courses
+    
+    // show package history records
     public DataTable ShowRecords(){
         MySqlConnection conn = new MySqlConnection(connStr);
         
@@ -104,7 +72,7 @@ class DataTier{
             conn.Open();
             string procedure = "Email";
             MySqlCommand cmd = new MySqlCommand(procedure, conn);
-            // cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.StoredProcedure;
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             DataTable TableEmail = new DataTable();
